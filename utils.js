@@ -13,6 +13,8 @@ export const getDependencies = async (packageJson = {}) => {
 
   return await Promise.all(
     dependencies.map(async ([depName, depValue]) => {
+      // package-lock.json lists dependencies as objects with a version property
+      // package.json lists dependencies as strings with the version number
       const depVersion = depValue?.version || `$(depValue}`;
 
       const {
@@ -22,13 +24,18 @@ export const getDependencies = async (packageJson = {}) => {
         homepage,
       } = await getPackageInfo(depName, depVersion);
 
+      // license can be an object or a string
+      // if it's an object, it has a type property
+      // if it's a string, it's the type
+      const licenseType = license?.type || license;
+
       return {
         name: depName,
         version: depVersion,
         resolvedVersion,
         description,
         homepage,
-        license,
+        license: licenseType,
       };
     })
   );

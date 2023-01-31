@@ -50,7 +50,7 @@ function LicenseList({ packageJson = {} }) {
         <th>License</th>
       </tr>
       ${dependencies?.map(({ name, license, homepage }) => {
-        const licenseName = license?.toUpperCase() || "Unknown";
+        const licenseName = `${license || "Unknown"}`?.toUpperCase();
 
         return html`
           <tr>
@@ -58,7 +58,7 @@ function LicenseList({ packageJson = {} }) {
               ${homepage ? html`<a href="${homepage}">${name}</a>` : name}
             </td>
             <td>
-              ${licenseName !== "Unknown" && licenseName !== "UNLICENSED"
+              ${licenseName !== "UNKNOWN" && licenseName !== "UNLICENSED"
                 ? html`<a href="${licenseUrl(license)}">${licenseName}</a>`
                 : licenseName}
             </td>

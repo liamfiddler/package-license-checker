@@ -12,7 +12,9 @@ export const getDependencies = async (packageJson = {}) => {
   const dependencies = Object.entries(packageJson?.dependencies || {});
 
   return await Promise.all(
-    dependencies.map(async ([depName, depVersion]) => {
+    dependencies.map(async ([depName, depValue]) => {
+      const depVersion = depValue?.version || `$(depValue}`;
+
       const {
         license,
         version: resolvedVersion,
@@ -33,7 +35,8 @@ export const getDependencies = async (packageJson = {}) => {
 };
 
 export const licenseUrl = (license = "") => {
-  return `https://choosealicense.com/licenses/${license.toLowerCase()}`;
+  const id = `${license || "Unknown"}`?.toLowerCase();
+  return `https://choosealicense.com/licenses/${id}`;
 };
 
 /** Convert a 2D array into a CSV string

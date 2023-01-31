@@ -1,0 +1,11 @@
+{
+  "name": "package-licenses",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "npx dhost",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@liamfiddler",
+  "license": "UNLICENSED"
+}

@@ -1,13 +1,12 @@
-body {
+html, body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: monospace;
+  font-size: 20px;
   color: #212529;
-}
-
-main {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 1em;
 }
 
 a,
@@ -15,6 +14,10 @@ a:visited {
   color: #007bff;
   text-decoration: none;
   background-color: transparent;
+}
+
+small {
+  font-size: 14px;
 }
 
 table {
@@ -50,16 +53,57 @@ button {
   cursor: pointer;
 }
 
+.file-input {
+  position: relative;
+  overflow: hidden;
+}
+
 .file-input input {
   opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .file-input label {
   display: inline-block;
   padding: 0.5em 1em;
-  border: 0;
-  background: #212529;
-  color: #fff;
-  border-radius: 0.25em;
   cursor: pointer;
+}
+
+.file-input svg {
+  width: 6em;
+  height: 6em;
+  margin-bottom: 1em;
+  fill: #212529;
+}
+
+.file-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0.6;
+}
+
+.file-wrapper.drag-over {
+  background: #007bff;
+  color: #fff;
+  opacity: 1;
+}
+
+.error {
+  color: #dc3545;
+  animation: shake 0.2s ease-in-out 0s 2;
+}
+
+@keyframes shake {
+  0% { margin-left: 0rem; }
+  25% { margin-left: 0.5rem; }
+  75% { margin-left: -0.5rem; }
+  100% { margin-left: 0rem; }
 }

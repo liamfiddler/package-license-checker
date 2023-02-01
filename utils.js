@@ -8,36 +8,38 @@ const getPackageInfo = async (name = "", version = "latest") => {
   return await response.json();
 };
 
+export const getDependencyInfo = async ([depName, depValue]) => {
+  // package-lock.json lists dependencies as objects with a version property
+  // package.json lists dependencies as strings with the version number
+  const depVersion = depValue?.version || `$(depValue}`;
+
+  const {
+    license,
+    version: resolvedVersion,
+    description,
+    homepage,
+  } = await getPackageInfo(depName, depVersion);
+
+  // license can be an object or a string
+  // if it's an object, it has a type property
+  // if it's a string, it's the type
+  const licenseType = license?.type || license;
+
+  return {
+    name: depName,
+    version: depVersion,
+    resolvedVersion,
+    description,
+    homepage,
+    license: licenseType,
+  };
+}
+
 export const getDependencies = async (packageJson = {}) => {
   const dependencies = Object.entries(packageJson?.dependencies || {});
 
   return await Promise.all(
-    dependencies.map(async ([depName, depValue]) => {
-      // package-lock.json lists dependencies as objects with a version property
-      // package.json lists dependencies as strings with the version number
-      const depVersion = depValue?.version || `$(depValue}`;
-
-      const {
-        license,
-        version: resolvedVersion,
-        description,
-        homepage,
-      } = await getPackageInfo(depName, depVersion);
-
-      // license can be an object or a string
-      // if it's an object, it has a type property
-      // if it's a string, it's the type
-      const licenseType = license?.type || license;
-
-      return {
-        name: depName,
-        version: depVersion,
-        resolvedVersion,
-        description,
-        homepage,
-        license: licenseType,
-      };
-    })
+    dependencies.map(getDependencyInfo)
   );
 };
 

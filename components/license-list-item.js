@@ -20,7 +20,17 @@ function LicenseListItem({ name = "", version = "" }) {
       return;
     }
 
-    getDependencyInfo([name, version]).then(setDependency);
+    getDependencyInfo([name, version]).then((response) => {
+      setDependency(response);
+
+      const event = new CustomEvent("get-license", {
+        bubbles: true, // this lets the event bubble up through the DOM
+        composed: true, // this lets the event cross the Shadow DOM boundary
+        detail: response,
+      });
+
+      this.dispatchEvent(event);
+    });
   }, [name, version]);
 
   return html`

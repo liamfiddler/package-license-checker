@@ -11,6 +11,15 @@ customElements.define("list-item", LicenseListItem);
 
 function App() {
   const [packageJson, setPackageJson] = useState();
+  const [csv, setCsv] = useState("");
+
+  const downloadCsv = () => {
+    const blob = new Blob([csv], { type: "text/csv" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute("download", "licenses.csv");
+    link.click();
+  };
 
   if (!packageJson) {
     return html`
@@ -31,9 +40,18 @@ function App() {
       </div>
       ${Object.entries(packageJson?.dependencies || {})?.map(
         ([name, version]) => html`
-          <list-item .name=${name} .version=${version}></list-item>
+          <list-item
+            .name=${name}
+            .version=${version}
+            @get-license=${(event) => {
+              setCsv(
+                (value) => value + `"${name}","${event?.detail?.license}"\n`
+              );
+            }}
+          ></list-item>
         `
       )}
+      <button type="button" @click=${downloadCsv}>Download as CSV</button>
     </section>
   `;
 }

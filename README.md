@@ -2,8 +2,6 @@
 
 A web app to list the licenses for all the dependencies of a project.
 
-Currently live at [licenses.futurefriendly.team](https://licenses.futurefriendly.team/)
-
 Created to address a need from a client to confirm the licenses of packages used on a project align with commercial and legal requirements.
 
 ## Project team

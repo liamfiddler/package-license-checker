@@ -3,8 +3,8 @@ import {
   useState,
   html,
 } from "https://unpkg.com/haunted@4.8.3/haunted.js";
-import PackageJsonInput from "/components/package-json-input.js";
-import LicenseListItem from "/components/license-list-item.js";
+import PackageJsonInput from "./components/package-json-input.js";
+import LicenseListItem from "./components/license-list-item.js";
 
 customElements.define("package-json-input", PackageJsonInput);
 customElements.define("list-item", LicenseListItem);

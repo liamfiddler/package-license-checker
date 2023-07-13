@@ -30,7 +30,7 @@ function App() {
   }
 
   return html`
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <section class="container">
       <a href="/">&larr; Back</a>
       <h1>${packageJson?.name || "Unnamed package"}</h1>

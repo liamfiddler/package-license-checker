@@ -32,7 +32,7 @@ function App() {
   return html`
     <link rel="stylesheet" href="./style.css" />
     <section class="container">
-      <a href="/">&larr; Back</a>
+      <a href="./">&larr; Back</a>
       <h1>${packageJson?.name || "Unnamed package"}</h1>
       <div class="dependency-row">
         <strong>Dependency</strong>

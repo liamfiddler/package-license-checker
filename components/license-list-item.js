@@ -34,7 +34,7 @@ function LicenseListItem({ name = "", version = "" }) {
   }, [name, version]);
 
   return html`
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <div class="dependency-row">
       <span>
         ${dependency?.homepage

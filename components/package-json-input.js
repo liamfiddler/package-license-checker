@@ -79,7 +79,7 @@ function PackageJsonInput() {
   };
 
   return html`
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <section
       class="file-wrapper ${isDragOver ? "drag-over" : ""}"
       @drop=${handleDrop}

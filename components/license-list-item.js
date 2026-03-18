@@ -15,6 +15,26 @@ function LicenseListItem({ name = "", version = "" }) {
     ? `${dependency?.license || "Unknown"}`?.toUpperCase()
     : "░░░░░";
 
+  const resolvedVersionTooltip = isLoaded
+    ? `${dependency?.requestedVersion} (resolves to ${dependency?.resolvedVersion})`
+    : "";
+
+  let showWarning = false;
+  let warning = "";
+  let warningTooltip = "";
+
+  if (isLoaded) {
+    if (!dependency?.isWithinNMinusTwoMajor) {
+      showWarning = true;
+      warning = "🔽";
+      warningTooltip = `${dependency?.resolvedVersion} is greater than n-2 major versions behind latest (${dependency?.latestVersion})`;
+    } else if (!dependency?.isWithinNMinusTwoMinor) {
+      showWarning = true;
+      warning = "⏬";
+      warningTooltip = `${dependency?.resolvedVersion} is greater than n-2 minor versions behind latest (${dependency?.latestVersion})`;
+    }
+  }
+
   useEffect(() => {
     if (!name) {
       return;
@@ -36,18 +56,19 @@ function LicenseListItem({ name = "", version = "" }) {
   return html`
     <link rel="stylesheet" href="./style.css" />
     <div class="dependency-row">
-      <span>
+      <span title="${resolvedVersionTooltip}">
         ${dependency?.homepage
-          ? html`<a href="${dependency?.homepage}">${packageName}</a>`
-          : packageName}
+      ? html`<a href="${dependency?.homepage}">${packageName}</a>`
+      : packageName}
+        ${showWarning ? html`<span title="${warningTooltip}">${warning}</span>` : ""}
       </span>
       &#09;
       <span>
         ${isLoaded && licenseName !== "UNKNOWN" && licenseName !== "UNLICENSED"
-          ? html`<a href="${licenseUrl(dependency?.license)}"
+      ? html`<a href="${licenseUrl(dependency?.license)}"
               >${licenseName}</a
             >`
-          : licenseName}
+      : licenseName}
       </span>
     </div>
   `;

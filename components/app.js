@@ -39,18 +39,18 @@ function App() {
         <strong>License</strong>
       </div>
       ${Object.entries(packageJson?.dependencies || {})?.map(
-        ([name, version]) => html`
+    ([name, version]) => html`
           <list-item
             .name=${name}
             .version=${version}
             @get-license=${(event) => {
-              setCsv(
-                (value) => value + `"${name}","${event?.detail?.license}"\n`
-              );
-            }}
+        setCsv(
+          (value) => value + `"${name}","${event?.detail?.license}"\n`
+        );
+      }}
           ></list-item>
         `
-      )}
+  )}
       <button type="button" @click=${downloadCsv}>Download as CSV</button>
     </section>
   `;

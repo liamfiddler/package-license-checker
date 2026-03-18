@@ -1,6 +1,6 @@
 # Package License Checker
 
-A web app to list the licenses for all the dependencies of a project.
+A web app to list the licenses and versions for all the dependencies of a project.
 
 Created to address a need from a client to confirm the licenses of packages used on a project align with commercial and legal requirements.
 

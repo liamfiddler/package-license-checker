@@ -1,11 +1,19 @@
-html, body {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
   min-height: 100%;
   margin: 0;
   padding: 0;
   font-family: monospace;
-  font-size: 20px;
   color: #212529;
   line-height: 1.3;
+  scrollbar-gutter: stable;
+  font-size: clamp(10px, 8px + 0.69vw, 20px);
 }
 
 a,
@@ -16,13 +24,13 @@ a:visited {
 }
 
 small {
-  font-size: 16px;
+  font-size: 0.875em;
 }
 
 .container {
   padding: 2em 1em;
   width: 100%;
-  max-width: 800px;
+  max-width: 45em;
   margin: 0 auto;
 }
 
@@ -40,7 +48,7 @@ h1 {
   border-bottom: 0.1em dotted #dee2e6;
 }
 
-.dependency-row > * {
+.dependency-row>* {
   display: inline-block;
   vertical-align: bottom;
   background: #fff;
@@ -49,7 +57,7 @@ h1 {
   padding: 0 0.5em 0 0;
 }
 
-.dependency-row > *:last-child {
+.dependency-row>*:last-child {
   padding: 0 0 0 0.5em;
 }
 
@@ -114,8 +122,19 @@ button {
 }
 
 @keyframes shake {
-  0% { margin-left: 0rem; }
-  25% { margin-left: 0.5rem; }
-  75% { margin-left: -0.5rem; }
-  100% { margin-left: 0rem; }
+  0% {
+    margin-left: 0rem;
+  }
+
+  25% {
+    margin-left: 0.5rem;
+  }
+
+  75% {
+    margin-left: -0.5rem;
+  }
+
+  100% {
+    margin-left: 0rem;
+  }
 }

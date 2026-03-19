@@ -19,6 +19,8 @@ function LicenseListItem({ name = "", version = "" }) {
     ? `${dependency?.requestedVersion} (resolves to ${dependency?.resolvedVersion})`
     : "";
 
+  const showPermissiveWarning = isLoaded && !dependency?.isPermissive;
+
   let showWarning = false;
   let warning = "";
   let warningTooltip = "";
@@ -69,6 +71,7 @@ function LicenseListItem({ name = "", version = "" }) {
               >${licenseName}</a
             >`
       : licenseName}
+        ${showPermissiveWarning ? html`<span title="Might not be a permissive license">⚠️</span>` : ""}
       </span>
     </div>
   `;

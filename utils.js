@@ -38,6 +38,7 @@ export const getDependencyInfo = async ([depName, depValue]) => {
     versions,
     homepage,
     license: licenseType,
+    isPermissive: isPermissiveLicense(licenseType),
     isWithinNMinusTwoMajor: isWithinNMinusTwo(resolvedVersion, latestVersion, false),
     isWithinNMinusTwoMinor: isWithinNMinusTwo(resolvedVersion, latestVersion, true),
   };
@@ -142,4 +143,23 @@ export const isWithinNMinusTwo = (resolvedVersion, latestVersion, minor = false)
   }
 
   return resolved[0] >= latest[0] - 2;
+};
+
+// Common permissive open-source licenses
+const permissiveLicenses = [
+  "MIT",
+  "BSD-2-Clause",
+  "BSD-3-Clause",
+  "Apache-2.0",
+  "ISC",
+  "Zlib",
+  "Unlicense",
+  "CC0-1.0", // Creative Commons Zero
+  "Python-2.0",
+  "PostgreSQL",
+  "MIT-0" // Zero-clause MIT
+].map((license) => license.toLowerCase());
+
+export const isPermissiveLicense = (license = "") => {
+  return permissiveLicenses.includes(license.toLowerCase());
 };

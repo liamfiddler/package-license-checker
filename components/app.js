@@ -11,7 +11,7 @@ customElements.define("list-item", LicenseListItem);
 
 function App() {
   const [packageJson, setPackageJson] = useState();
-  const [csv, setCsv] = useState("");
+  const [csv, setCsv] = useState(`"Name","License","Requested Version","Resolved Version","Latest Version","Within n-2 (Major)","Within n-2 (Minor)"\n`);
 
   const downloadCsv = () => {
     const blob = new Blob([csv], { type: "text/csv" });
@@ -44,8 +44,27 @@ function App() {
             .name=${name}
             .version=${version}
             @get-license=${(event) => {
+        console.log(event?.detail);
         setCsv(
-          (value) => value + `"${name}","${event?.detail?.license}"\n`
+          (value) => value + `"${name}","${event?.detail?.license}","${event?.detail?.requestedVersion}","${event?.detail?.resolvedVersion}","${event?.detail?.latestVersion}","${event?.detail?.isWithinNMinusTwoMajor}","${event?.detail?.isWithinNMinusTwoMinor}"\n`
+        );
+      }}
+          ></list-item>
+        `
+  )}
+      <div class="dependency-row">
+        <strong>Development Dependency</strong>
+        <strong>License</strong>
+      </div>
+      ${Object.entries(packageJson?.devDependencies || {})?.map(
+    ([name, version]) => html`
+          <list-item
+            .name=${name}
+            .version=${version}
+            @get-license=${(event) => {
+        console.log(event?.detail);
+        setCsv(
+          (value) => value + `"${name}","${event?.detail?.license}","${event?.detail?.requestedVersion}","${event?.detail?.resolvedVersion}","${event?.detail?.latestVersion}","${event?.detail?.isWithinNMinusTwoMajor}","${event?.detail?.isWithinNMinusTwoMinor}"\n`
         );
       }}
           ></list-item>

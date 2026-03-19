@@ -25,7 +25,7 @@ function PackageJsonInput() {
       try {
         const json = JSON.parse(reader.result);
 
-        if (!json?.dependencies) {
+        if (!json?.dependencies && !json?.devDependencies) {
           setErrorMessage("No dependencies found in the selected file.");
           setState("error");
           return;
@@ -109,11 +109,11 @@ function PackageJsonInput() {
           accept=".json,application/JSON,text/JSON"
         />
         ${state === "error"
-          ? html`<p class="error">
+      ? html`<p class="error">
               ${errorMessage || "An error occurred."}<br />Please select a
               different file.
             </p>`
-          : ""}
+      : ""}
       </div>
     </section>
   `;
